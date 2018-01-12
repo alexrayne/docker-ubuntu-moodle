@@ -1,5 +1,7 @@
-apache-php
+dimaip/typo3-legacy
 ===================================
+
+**Just some image to run ancient TYPO3 projects on**
 
 A Docker image based on Ubuntu, serving PHP 5.5 running as Apache Module. Useful for Web developers in need for a fixed PHP version. In addition, the `error_reporting` setting in php.ini is configurable per container via environment variable.
 
