@@ -1,3 +1,5 @@
-#!/usr/bin/with-contenv bash
-mkdir -p /var/run/sshd
-/usr/sbin/sshd
+#!/usr/bin/execlineb -P
+foreground { s6-mkdir -p -m 750 /var/run/sshd }
+fdmove -c 2 1
+if { /usr/sbin/sshd -t }
+/usr/bin/with-contenv /usr/sbin/sshd -D -e
