@@ -6,7 +6,7 @@ ARG S6_VERSION="1.21.2.2"
 VOLUME ["/var/www"]
 
 
-RUN apt-get update && apt-get install \
+RUN apt-get update && apt-get install -y \
  pwgen \
  apache2 \
  php5 \
