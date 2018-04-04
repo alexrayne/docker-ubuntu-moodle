@@ -27,6 +27,7 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_VERSIO
 
 RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C / && rm /tmp/s6-overlay-amd64.tar.gz \
   && chmod +x /github-keys.sh \
+  && sed -i -r 's/.?display_errors.+/display_errors = Off/' /etc/php5/apache2/php.ini \
   && sed -i -r 's/.?UseDNS\syes/UseDNS no/' /etc/ssh/sshd_config \
   && sed -i -r 's/.?PasswordAuthentication.+/PasswordAuthentication no/' /etc/ssh/sshd_config \
   && sed -i -r 's/.?ChallengeResponseAuthentication.+/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config \
