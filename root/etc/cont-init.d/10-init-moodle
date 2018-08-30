@@ -1,0 +1,24 @@
+#!/usr/bin/with-contenv /bin/bash
+set -ex
+
+# Layout default directory structure\
+#mkdir -p /data/logs
+#mkdir -p /data/tmp/nginx
+
+###
+# Initial provisioning
+###
+# Set permissions
+chown www-data:www-data -R /var/www
+chown www-data:www-data -R /moodledata
+chmod g+rwx -R /moodledata
+
+if [ -d /moodledata/ssl ]; then
+  for FILE in /moodledata/ssl/*.conf ;do
+      cp -f ${FILE} /etc/apache2/sites-available
+      a2ensite $(basename ${FILE%.*})
+  done
+  a2enmod ssl
+  apachectl stop
+  apachectl start
+fi
