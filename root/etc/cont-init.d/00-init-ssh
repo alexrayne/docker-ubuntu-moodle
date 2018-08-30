@@ -11,7 +11,6 @@ set -e
 [ -d /var/www/.ssh ] || mkdir /var/www/.ssh
 [ -f /var/www/.ssh/authorized_keys ] || touch /var/www/.ssh/authorized_keys
 chown www-data:www-data -R /var/www/.ssh
-chmod go-w /data/
 chmod 700 /var/www/.ssh
 chmod 600 /var/www/.ssh/authorized_keys
 
