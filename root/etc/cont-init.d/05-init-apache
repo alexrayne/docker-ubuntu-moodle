@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bash
+
+PHP_ERROR_REPORTING=${PHP_ERROR_REPORTING:-"E_ALL & ~E_DEPRECATED & ~E_NOTICE"}
+
+for PHPVER in /etc/php/* ; do
+if [[ -d ${PHPVER} ]]; then
+  sed -ri 's/^max_execution_time.*/max_execution_time = 60/g' ${PHPVER}/apache2/php.ini
+  sed -ri 's/^memory_limit.*/memory_limit = 256M/g' ${PHPVER}/apache2/php.ini
+  sed -ri 's/^memory_limit.*/memory_limit = 1024M/g' ${PHPVER}/cli/php.ini
+  sed -ri 's/^post_max_size.*/post_max_size = 1024M/g' ${PHPVER}/apache2/php.ini
+  sed -ri 's/^upload_max_filesize.*/upload_max_filesize = 1024M/g' ${PHPVER}/apache2/php.ini
+  sed -ri 's/^display_errors.*/display_errors = On/g' ${PHPVER}/apache2/php.ini
+  sed -ri 's/^display_errors.*/display_errors = On/g' ${PHPVER}/cli/php.ini
+  sed -ri "s/^error_reporting.*//g" ${PHPVER}/apache2/php.ini
+  sed -ri "s/^error_reporting.*//g" ${PHPVER}/cli/php.ini
+  echo "error_reporting = $PHP_ERROR_REPORTING" >> ${PHPVER}/apache2/php.ini
+  echo "error_reporting = $PHP_ERROR_REPORTING" >> ${PHPVER}/cli/php.ini
+fi
+done
+
